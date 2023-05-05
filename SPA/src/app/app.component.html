@@ -1,0 +1,85 @@
+
+
+<div class="container">
+  <ng-snotify></ng-snotify>
+  <div class="row mt-5">
+    <div class="col-md-3">
+        <input type="text" class="form-control" name="search" [(ngModel)]="searchStr">
+        
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-primary" (click)="search()">Search</button>
+    </div>
+
+    <div class="col-md-2">
+      <button class="btn btn-success" (click)="openModal(addNew)">Add New</button>
+      <button class="btn btn-danger ms-1" (click)="openModal(deleteSP)">Delete</button>
+    </div>
+    <div class="col-md-12 mt-5 ">
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Số Phiếu</th>
+            <th scope="col">Ngày lập phiếu</th>
+            <th scope="col">Mã vật tư</th>
+            <th scope="col">Tên vật tư</th>
+            <th scope="col">Đơn vị</th>
+            <th scope="col">Số lượng nhập</th>
+            <th scope="col">Số lượng xuất</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listData">
+            <td>{{item.soPhieu}}</td>
+            <td>{{item.ngayLapPhieu | date: 'yyyy/MM/dd'}}</td>
+            <td>{{item.maVt}}</td>
+            <td>{{item.tenVt}}</td>
+            <td>{{item.dvt}}</td>
+            <td>{{item.slNhap}}</td>
+            <td>{{item.slXuat}}</td>
+            <td>
+              <button class="btn btn-danger" (click)="delete(item)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+
+  <ng-template #addNew>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Add New</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="text" [(ngModel)]="dataAdd.soPhieu" class="form-control" name="sophieu" placeholder="Nhập số phiếu...">
+      <input type="text" placeholder="Nhập ngày lập phiếu" autocomplete="off" id="fromDate" class="form-control mt-1" bsDatepicker
+      [(ngModel)]="dataAdd.ngayLapPhieu" name="time_start" [bsConfig]="bsConfig">
+      <input type="text" [(ngModel)]="dataAdd.maVt" class="form-control mt-1" name="mavattu" placeholder="Nhập mã vật tư...">
+      <input type="text" [(ngModel)]="dataAdd.tenVt" class="form-control mt-1" name="tenvattu" placeholder="Nhập tên vật tư...">
+      <input type="text" [(ngModel)]="dataAdd.dvt" class="form-control mt-1" name="tenvattu" placeholder="Nhập đơn vị tính...">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="add()">Save</button>
+    </div> 
+  </ng-template>
+
+  <ng-template #deleteSP>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Delete</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="text" [(ngModel)]="soPhieuDelete" class="form-control" name="sophieu" placeholder="Nhập số phiếu...">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="functionDeleteSP()">Save</button>
+    </div> 
+  </ng-template>
+  
